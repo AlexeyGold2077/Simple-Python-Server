@@ -1,12 +1,13 @@
-from typing import Union
 from fastapi import FastAPI
+import random
 
 app = FastAPI()
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+@app.get('/')
+async def get_root():
+    return {'text': 'hello world'}
 
-@app.get("/items/{id}")
-def read_item(id: int, q: Union[str, None] = None):
-    return {"id": id, "parameter": q}
+@app.get('/random/{limit}')
+async def get_random(limit: int):
+    rn: int = random.randint(0,limit)
+    return {'number': rn, 'limit': limit}
